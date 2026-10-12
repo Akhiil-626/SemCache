@@ -1,0 +1,272 @@
+[
+  {
+    "id": 1,
+    "query": "How do I reset my password?",
+    "cached": "What is the procedure to reset my password?",
+    "label": "paraphrase"
+  },
+  {
+    "id": 2,
+    "query": "Explain quicksort algorithm",
+    "cached": "Can you explain how quicksort works?",
+    "label": "paraphrase"
+  },
+  {
+    "id": 3,
+    "query": "What is the capital of France?",
+    "cached": "Which city is France's capital?",
+    "label": "paraphrase"
+  },
+  {
+    "id": 4,
+    "query": "How to install python on windows",
+    "cached": "Steps for installing python on windows os",
+    "label": "paraphrase"
+  },
+  {
+    "id": 5,
+    "query": "Summarize the theory of relativity",
+    "cached": "Give me a summary of relativity theory",
+    "label": "paraphrase"
+  },
+  {
+    "id": 6,
+    "query": "How to calculate compound interest",
+    "cached": "Formula and method to compute compound interest",
+    "label": "paraphrase"
+  },
+  {
+    "id": 7,
+    "query": "What causes rain to fall?",
+    "cached": "Why does rain fall from the sky?",
+    "label": "paraphrase"
+  },
+  {
+    "id": 8,
+    "query": "How to convert string to int in python",
+    "cached": "Python method to parse an integer from a string",
+    "label": "paraphrase"
+  },
+  {
+    "id": 9,
+    "query": "Who wrote Romeo and Juliet?",
+    "cached": "Which author wrote Romeo and Juliet?",
+    "label": "paraphrase"
+  },
+  {
+    "id": 10,
+    "query": "Tell me a joke about programming",
+    "cached": "Share a funny programming joke",
+    "label": "paraphrase"
+  },
+  {
+    "id": 11,
+    "query": "How do I bake sourdough bread?",
+    "cached": "What is the time complexity of dijkstra's algorithm?",
+    "label": "unrelated"
+  },
+  {
+    "id": 12,
+    "query": "Who was the first president of the United States?",
+    "cached": "How do quantum computers work?",
+    "label": "unrelated"
+  },
+  {
+    "id": 13,
+    "query": "What is photosynthesis?",
+    "cached": "Best practices for writing clean code in Python",
+    "label": "unrelated"
+  },
+  {
+    "id": 14,
+    "query": "How to train for a marathon",
+    "cached": "Explain database normalization forms",
+    "label": "unrelated"
+  },
+  {
+    "id": 15,
+    "query": "Symptoms of the common cold",
+    "cached": "How to change a car tire",
+    "label": "unrelated"
+  },
+  {
+    "id": 16,
+    "query": "History of the Roman Empire",
+    "cached": "How to fix a leaky kitchen sink faucet",
+    "label": "unrelated"
+  },
+  {
+    "id": 17,
+    "query": "What is machine learning?",
+    "cached": "How to make homemade pasta from scratch",
+    "label": "unrelated"
+  },
+  {
+    "id": 18,
+    "query": "Why is the sky blue?",
+    "cached": "How to configure an nginx reverse proxy",
+    "label": "unrelated"
+  },
+  {
+    "id": 19,
+    "query": "Guide to chess opening principles",
+    "cached": "How does an airplane generate lift?",
+    "label": "unrelated"
+  },
+  {
+    "id": 20,
+    "query": "How to play acoustic guitar chords",
+    "cached": "Explain ACID properties in relational databases",
+    "label": "unrelated"
+  },
+  {
+    "id": 21,
+    "query": "Delete my account",
+    "cached": "Don't delete my account",
+    "label": "near_opposite"
+  },
+  {
+    "id": 22,
+    "query": "Cancel my subscription",
+    "cached": "Renew my subscription without cancel",
+    "label": "near_opposite"
+  },
+  {
+    "id": 23,
+    "query": "Send 50 dollars to Alice",
+    "cached": "Send 500 dollars to Alice",
+    "label": "near_opposite"
+  },
+  {
+    "id": 24,
+    "query": "Transfer 10 bitcoins",
+    "cached": "Transfer 20 bitcoins",
+    "label": "near_opposite"
+  },
+  {
+    "id": 25,
+    "query": "Allow user access",
+    "cached": "Do not allow user access",
+    "label": "near_opposite"
+  },
+  {
+    "id": 26,
+    "query": "Restart server 1 immediately",
+    "cached": "Restart server 2 immediately",
+    "label": "near_opposite"
+  },
+  {
+    "id": 27,
+    "query": "Turn on notifications",
+    "cached": "Never turn on notifications",
+    "label": "near_opposite"
+  },
+  {
+    "id": 28,
+    "query": "Process my order now",
+    "cached": "Stop my order now",
+    "label": "near_opposite"
+  },
+  {
+    "id": 29,
+    "query": "Export all 100 records",
+    "cached": "Export all 500 records",
+    "label": "near_opposite"
+  },
+  {
+    "id": 30,
+    "query": "Save this file without changes",
+    "cached": "Save this file with changes",
+    "label": "near_opposite"
+  },
+  {
+    "id": 31,
+    "query": "How to enable two-factor authentication",
+    "cached": "How to disable two-factor authentication",
+    "label": "near_opposite"
+  },
+  {
+    "id": 32,
+    "query": "Should I buy this stock?",
+    "cached": "Should I sell this stock?",
+    "label": "near_opposite"
+  },
+  {
+    "id": 33,
+    "query": "Please lock the front door",
+    "cached": "Please unlock the front door",
+    "label": "adversarial"
+  },
+  {
+    "id": 34,
+    "query": "How to increase the audio volume",
+    "cached": "How to decrease the audio volume",
+    "label": "adversarial"
+  },
+  {
+    "id": 35,
+    "query": "I want to open a bank account",
+    "cached": "I want to close a bank account",
+    "label": "adversarial"
+  },
+  {
+    "id": 36,
+    "query": "Should we allow the network request?",
+    "cached": "Should we deny the network request?",
+    "label": "adversarial"
+  },
+  {
+    "id": 37,
+    "query": "How to add a new user",
+    "cached": "How to remove a new user",
+    "label": "adversarial"
+  },
+  {
+    "id": 38,
+    "query": "How to turn on dark mode",
+    "cached": "How to turn off dark mode",
+    "label": "adversarial"
+  },
+  {
+    "id": 39,
+    "query": "When to start the database backup",
+    "cached": "When to pause the database backup",
+    "label": "adversarial"
+  },
+  {
+    "id": 40,
+    "query": "Did the bank approve the loan application?",
+    "cached": "Did the bank reject the loan application?",
+    "label": "adversarial"
+  },
+  {
+    "id": 41,
+    "query": "How to upload the profile picture file",
+    "cached": "How to download the profile picture file",
+    "label": "adversarial"
+  },
+  {
+    "id": 42,
+    "query": "Is it safe to take this medication?",
+    "cached": "Is it dangerous to take this medication?",
+    "label": "adversarial"
+  },
+  {
+    "id": 43,
+    "query": "How to accept the calendar invitation",
+    "cached": "How to decline the calendar invitation",
+    "label": "adversarial"
+  },
+  {
+    "id": 44,
+    "query": "Steps to encrypt the configuration file",
+    "cached": "Steps to decrypt the configuration file",
+    "label": "adversarial"
+  },
+  {
+    "id": 45,
+    "query": "How to subscribe to the weekly newsletter",
+    "cached": "How to unsubscribe from the weekly newsletter",
+    "label": "adversarial"
+  }
+]

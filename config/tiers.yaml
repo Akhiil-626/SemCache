@@ -1,0 +1,16 @@
+tiers:
+  - name: small
+    model: ollama_chat/llama3.2:3b
+    api_base: http://localhost:11434
+    price_per_1m: 0.0
+    shadow_price_per_1m:
+      input: 0.15
+      output: 0.60
+
+  - name: large
+    model: ollama_chat/llama3.1:8b
+    api_base: http://localhost:11434
+    price_per_1m: 0.0
+    shadow_price_per_1m:
+      input: 2.00
+      output: 8.00

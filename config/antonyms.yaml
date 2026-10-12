@@ -1,0 +1,21 @@
+# Antonym pairs for semantic cache guard.
+# If query and cached entry contain different members of any pair, the semantic hit is rejected.
+antonym_pairs:
+  - [enable, disable]
+  - [buy, sell]
+  - [increase, decrease]
+  - [lock, unlock]
+  - [open, close]
+  - [allow, deny]
+  - [add, remove]
+  - ["on", "off"]
+  - [start, pause]
+  - [approve, reject]
+  - [upload, download]
+  - [safe, dangerous]
+  - [accept, decline]
+  - [encrypt, decrypt]
+  - [subscribe, unsubscribe]
+  - [before, after]
+  - [win, lose]
+  - [include, exclude]
