@@ -23,6 +23,7 @@ class LLMResponse:
     shadow_cost: float
     model_name: str
     tier: str
+    finish_reason: str = "stop"
 
 
 class LLMClientInterface(Protocol):
@@ -67,13 +68,42 @@ class LLMClient:
                 )
                 break
             except (
-                litellm.exceptions.APIConnectionError,
                 litellm.exceptions.Timeout,
-                httpx.ConnectError,
                 httpx.TimeoutException,
-                ConnectionError,
                 asyncio.TimeoutError,
+                TimeoutError,
             ) as exc:
+                timeout_s = (
+                    int(settings.OLLAMA_REQUEST_TIMEOUT)
+                    if float(settings.OLLAMA_REQUEST_TIMEOUT).is_integer()
+                    else settings.OLLAMA_REQUEST_TIMEOUT
+                )
+                err_msg = f"timeout after {timeout_s}s"
+                logger.error(
+                    "Ollama request timed out; not retrying: %s",
+                    err_msg,
+                    extra={"tier": tier_cfg.name, "error": err_msg},
+                )
+                raise TimeoutError(err_msg) from exc
+            except (
+                litellm.exceptions.APIConnectionError,
+                httpx.ConnectError,
+                ConnectionError,
+            ) as exc:
+                if "timeout" in str(exc).lower() or "timed out" in str(exc).lower():
+                    timeout_s = (
+                        int(settings.OLLAMA_REQUEST_TIMEOUT)
+                        if float(settings.OLLAMA_REQUEST_TIMEOUT).is_integer()
+                        else settings.OLLAMA_REQUEST_TIMEOUT
+                    )
+                    err_msg = f"timeout after {timeout_s}s"
+                    logger.error(
+                        "Ollama request timed out; not retrying: %s",
+                        err_msg,
+                        extra={"tier": tier_cfg.name, "error": err_msg},
+                    )
+                    raise TimeoutError(err_msg) from exc
+
                 last_error = exc
                 if attempt < self.retry_count:
                     logger.warning(
@@ -88,10 +118,19 @@ class LLMClient:
 
         # Extract content & token metrics
         content = ""
+        finish_reason = "stop"
         if response and hasattr(response, "choices") and response.choices:
             choice = response.choices[0]
             if hasattr(choice, "message") and hasattr(choice.message, "content"):
                 content = choice.message.content or ""
+            finish_reason = getattr(choice, "finish_reason", "stop") or "stop"
+        elif isinstance(response, dict) and response.get("choices"):
+            choice = response["choices"][0]
+            if isinstance(choice, dict):
+                msg = choice.get("message", {})
+                if isinstance(msg, dict):
+                    content = msg.get("content", "") or ""
+                finish_reason = choice.get("finish_reason", "stop") or "stop"
 
         usage = getattr(response, "usage", None) if response else None
         if usage:
@@ -119,6 +158,7 @@ class LLMClient:
             shadow_cost=shadow_cost,
             model_name=tier_cfg.model,
             tier=tier_cfg.name,
+            finish_reason=finish_reason,
         )
 
 

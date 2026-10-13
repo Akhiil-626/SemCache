@@ -1,5 +1,7 @@
 import time
 import uuid
+from typing import Any
+
 from fastapi import APIRouter, Depends, Header, status
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -24,6 +26,7 @@ class ChatCompletionRequest(BaseModel):
     stream: bool = Field(default=False, description="Streaming response flag")
     user_budget: float | None = Field(default=None, description="Optional budget limit in USD")
     bypass_cache: bool = Field(default=False, description="Force LLM generation bypassing cache")
+    response_format: Any = Field(default=None, description="Optional response format (e.g. JSON schema)")
 
 
 class ChatChoice(BaseModel):
@@ -84,6 +87,7 @@ async def create_chat_completion(
         max_tokens=request.max_tokens,
         stream=request.stream,
         cache_control=cache_control,
+        response_format=request.response_format,
     )
 
     created_timestamp = int(time.time())

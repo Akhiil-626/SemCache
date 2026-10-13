@@ -39,6 +39,10 @@ class TierStats(BaseModel):
     semantic_hit_count: int = 0
     avg_similarity_hits: float = 0.0
     avg_similarity_misses: float = 0.0
+    first_attempt_pass_rate: float = 0.0
+    total_wasted_latency_ms: float = 0.0
+    total_wasted_shadow_cost_usd: float = 0.0
+    escalation_count: int = 0
 
 
 class StatsResponse(BaseModel):
@@ -61,6 +65,11 @@ class StatsResponse(BaseModel):
     semantic_hit_count: int = 0
     avg_similarity_hits: float = 0.0
     avg_similarity_misses: float = 0.0
+    escalation_rate: float = 0.0
+    avg_attempts_per_request: float = 0.0
+    total_wasted_shadow_cost_usd: float = 0.0
+    total_wasted_latency_ms: float = 0.0
+    per_tier_first_attempt_pass_rate: dict[str, float] = Field(default_factory=dict)
     tiers: dict[str, TierStats]
 
 
@@ -127,8 +136,34 @@ async def get_stats(db: AsyncSession = Depends(get_db)) -> Any:
             semantic_hit_count=0,
             avg_similarity_hits=0.0,
             avg_similarity_misses=0.0,
+            escalation_rate=0.0,
+            avg_attempts_per_request=0.0,
+            total_wasted_shadow_cost_usd=0.0,
+            total_wasted_latency_ms=0.0,
+            per_tier_first_attempt_pass_rate={name: 0.0 for name in configured_tier_names},
             tiers=tiers_map,
         )
+
+    # First attempt statistics tracking
+    tier_first_attempts: dict[str, int] = {name: 0 for name in configured_tier_names}
+    tier_first_passes: dict[str, int] = {name: 0 for name in configured_tier_names}
+
+    for r in records:
+        attempts = getattr(r, "attempts", None)
+        if attempts and isinstance(attempts, list) and len(attempts) > 0:
+            first_att = attempts[0]
+            first_tier = first_att.get("tier", r.tier)
+            first_passed = bool(first_att.get("validation_passed", False))
+            tier_first_attempts[first_tier] = tier_first_attempts.get(first_tier, 0) + 1
+            if first_passed:
+                tier_first_passes[first_tier] = tier_first_passes.get(first_tier, 0) + 1
+        elif not getattr(r, "cached", False):
+            first_tier = getattr(r, "desired_tier", None) or r.tier
+            tier_first_attempts[first_tier] = tier_first_attempts.get(first_tier, 0) + 1
+            esc_cnt = getattr(r, "escalation_count", 0) or 0
+            val_failed = getattr(r, "validation_failed", False)
+            if esc_cnt == 0 and not val_failed:
+                tier_first_passes[first_tier] = tier_first_passes.get(first_tier, 0) + 1
 
     # Group records by tier
     tier_groups: dict[str, list[RequestRecord]] = {}
@@ -185,6 +220,19 @@ async def get_stats(db: AsyncSession = Depends(get_db)) -> Any:
             round(sum(group_miss_sims) / len(group_miss_sims), 4) if group_miss_sims else 0.0
         )
 
+        tier_wasted_lat = round(
+            sum(float(getattr(r, "wasted_latency_ms", 0.0) or 0.0) for r in group), 2
+        )
+        tier_wasted_shadow = round(
+            sum(float(getattr(r, "wasted_shadow_cost_usd", 0.0) or 0.0) for r in group), 8
+        )
+        tier_esc_count = sum(int(getattr(r, "escalation_count", 0) or 0) for r in group)
+        tier_pass_rate = (
+            round(tier_first_passes[tier_name] / tier_first_attempts[tier_name], 4)
+            if tier_first_attempts.get(tier_name, 0) > 0
+            else 0.0
+        )
+
         tiers_map[tier_name] = TierStats(
             request_count=len(group),
             avg_latency_ms=avg_lat,
@@ -200,6 +248,10 @@ async def get_stats(db: AsyncSession = Depends(get_db)) -> Any:
             semantic_hit_count=semantic_hits,
             avg_similarity_hits=avg_sim_hits,
             avg_similarity_misses=avg_sim_misses,
+            first_attempt_pass_rate=tier_pass_rate,
+            total_wasted_latency_ms=tier_wasted_lat,
+            total_wasted_shadow_cost_usd=tier_wasted_shadow,
+            escalation_count=tier_esc_count,
         )
 
     total_prompt_tokens = sum(t.total_prompt_tokens for t in tiers_map.values())
@@ -242,6 +294,35 @@ async def get_stats(db: AsyncSession = Depends(get_db)) -> Any:
         round(sum(all_miss_sims) / len(all_miss_sims), 4) if all_miss_sims else 0.0
     )
 
+    total_wasted_latency = round(
+        sum(float(getattr(r, "wasted_latency_ms", 0.0) or 0.0) for r in records), 2
+    )
+    total_wasted_shadow = round(
+        sum(float(getattr(r, "wasted_shadow_cost_usd", 0.0) or 0.0) for r in records), 8
+    )
+    escalated_requests = sum(
+        1 for r in records if (getattr(r, "escalation_count", 0) or 0) > 0
+    )
+    escalation_rate = round(escalated_requests / total_requests, 4) if total_requests else 0.0
+
+    total_attempts_count = 0
+    for r in records:
+        atts = getattr(r, "attempts", None)
+        if atts and isinstance(atts, list):
+            total_attempts_count += len(atts)
+        elif not getattr(r, "cached", False):
+            total_attempts_count += 1 + (getattr(r, "escalation_count", 0) or 0)
+    avg_attempts = round(total_attempts_count / total_requests, 4) if total_requests else 0.0
+
+    per_tier_first_attempt_pass_rate = {
+        name: (
+            round(tier_first_passes[name] / tier_first_attempts[name], 4)
+            if tier_first_attempts.get(name, 0) > 0
+            else 0.0
+        )
+        for name in configured_tier_names
+    }
+
     return StatsResponse(
         total_requests=total_requests,
         total_prompt_tokens=total_prompt_tokens,
@@ -254,5 +335,10 @@ async def get_stats(db: AsyncSession = Depends(get_db)) -> Any:
         semantic_hit_count=total_semantic_hits,
         avg_similarity_hits=overall_avg_sim_hits,
         avg_similarity_misses=overall_avg_sim_misses,
+        escalation_rate=escalation_rate,
+        avg_attempts_per_request=avg_attempts,
+        total_wasted_shadow_cost_usd=total_wasted_shadow,
+        total_wasted_latency_ms=total_wasted_latency,
+        per_tier_first_attempt_pass_rate=per_tier_first_attempt_pass_rate,
         tiers=tiers_map,
     )

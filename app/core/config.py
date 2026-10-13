@@ -86,8 +86,9 @@ class Settings(BaseSettings):
     CACHE_VERSION: str = "v1"
     REDIS_URL: str = "redis://localhost:6379/0"
 
-    # Routing Budget
+    # Routing Budget & Rules
     MAX_QUERY_BUDGET: float = 0.05
+    ROUTING_CONFIG_PATH: str = "config/routing.yaml"
 
     @computed_field
     def async_database_url(self) -> str:

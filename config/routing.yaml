@@ -1,0 +1,175 @@
+thresholds:
+  large_threshold: 2.0
+
+tiers:
+  default_tier: "small"
+  large_tier: "large"
+
+concept_groups:
+  - name: "proof"
+    weight: 2.0
+    words:
+      - "prove"
+      - "proof"
+      - "proving"
+      - "proved"
+
+  - name: "architecture"
+    weight: 2.0
+    words:
+      - "architect"
+      - "architectural"
+      - "architecture"
+
+  - name: "step_by_step"
+    weight: 2.0
+    words:
+      - "step by step"
+      - "step-by-step"
+      - "étape par étape"
+
+  - name: "analysis"
+    weight: 2.0
+    words:
+      - "analyze"
+      - "analysis"
+      - "analyzing"
+      - "analyzed"
+      - "analysez"
+
+  - name: "comparison"
+    weight: 2.0
+    words:
+      - "compare"
+      - "comparison"
+      - "comparing"
+      - "compared"
+
+  - name: "critique"
+    weight: 2.0
+    words:
+      - "critique"
+      - "critiquing"
+      - "critiqued"
+
+  - name: "optimization"
+    weight: 2.0
+    words:
+      - "optimize"
+      - "optimization"
+      - "optimizing"
+      - "optimized"
+      - "optimisation"
+      - "最適化"
+
+  - name: "refactoring"
+    weight: 2.0
+    words:
+      - "refactor"
+      - "refactoring"
+      - "refactored"
+      - "リファクタリング"
+
+  - name: "derivation"
+    weight: 2.0
+    words:
+      - "derive"
+      - "derivation"
+      - "deriving"
+      - "derived"
+
+  - name: "algorithm"
+    weight: 2.0
+    words:
+      - "algorithm"
+      - "algorithmic"
+      - "algorithms"
+
+  - name: "trade_offs"
+    weight: 2.0
+    words:
+      - "trade-offs"
+      - "tradeoffs"
+      - "trade-off"
+      - "tradeoff"
+
+  - name: "complex_reasoning"
+    weight: 2.0
+    words:
+      - "complex"
+      - "reasoning"
+      - "concurrency"
+
+  - name: "math_logic"
+    weight: 2.0
+    words:
+      - "calculate"
+      - "calculation"
+      - "probability"
+      - "induction"
+      - "gradient"
+      - "bayes"
+
+  - name: "format_requests"
+    weight: 1.0
+    words:
+      - "json"
+      - "table"
+      - "schema"
+      - "csv"
+      - "bullet points"
+
+  - name: "code_markers"
+    weight: 1.5
+    words:
+      - "def "
+      - "class "
+      - "traceback"
+      - "stack trace"
+      - "indexerror"
+      - "keyerror"
+      - "nullpointerexception"
+      - "panic:"
+
+feature_rules:
+  - name: "long_prompt"
+    type: "word_count"
+    label: "long prompt"
+    weight: 1.0
+    min_words: 61
+
+  - name: "very_long_prompt"
+    type: "word_count"
+    label: "very long prompt"
+    weight: 2.0
+    min_words: 201
+
+  - name: "code_fence"
+    type: "regex"
+    label: "code fence"
+    weight: 2.0
+    pattern: "```"
+
+  - name: "math_operators"
+    type: "regex"
+    label: "math expression"
+    weight: 1.5
+    pattern: "(?:\\d+\\s*[+*^=<>×÷]\\s*\\d+|\\d+\\s+[-/]\\s+\\d+|\\b\\d+(?:\\.\\d+)?%|\\b[a-zA-Z]\\s*\\^\\s*\\d+|\\b\\d+[a-zA-Z]\\s*[+\\-]\\s*\\d+)"
+
+  - name: "subtasks_or_questions"
+    type: "subtasks"
+    label: "multiple subtasks"
+    weight: 1.0
+    min_count: 2
+
+  - name: "message_count"
+    type: "message_count"
+    label: "multi-turn conversation"
+    weight: 1.0
+    min_messages: 3
+
+  - name: "non_ascii_ratio"
+    type: "non_ascii_ratio"
+    label: "non-ascii prompt"
+    weight: 1.0
+    min_ratio: 0.15

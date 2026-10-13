@@ -142,6 +142,11 @@ class InMemoryExactCacheBackend(ExactCacheBackend):
         self.clock = clock
         self._store: dict[str, tuple[dict[str, Any], float]] = {}
 
+    @property
+    def store(self) -> dict[str, dict[str, Any]]:
+        now = self.clock()
+        return {k: val for k, (val, expiry) in self._store.items() if now < expiry}
+
     async def get(self, key: str) -> dict[str, Any] | None:
         key_hash = key[:8] if key else "none"
         backend_name = self.__class__.__name__

@@ -1,0 +1,53 @@
+# Configuration for LLM output validators and cascading escalation rules
+
+validators:
+  - name: "non_empty"
+    enabled: true
+    min_completion_tokens:
+      default: 1
+      small: 1
+      large: 1
+
+  - name: "not_truncated"
+    enabled: true
+
+  - name: "not_refusal"
+    enabled: true
+    max_tokens: 60
+    patterns:
+      - "i cannot fulfill"
+      - "i can't fulfill"
+      - "as an ai"
+      - "i am an ai"
+      - "i am unable to"
+      - "i cannot assist"
+      - "i apologize, but i cannot"
+      - "i cannot comply"
+      - "against my safety guidelines"
+      - "against openai's use case policy"
+
+  - name: "valid_json"
+    enabled: true
+
+  - name: "no_repetition"
+    enabled: true
+    min_characters: 200
+    zlib_compression_threshold: 0.20
+    ngram_size: 4
+    max_ngram_repeats: 3
+
+tier_rules:
+  small:
+    enabled_validators:
+      - "non_empty"
+      - "not_truncated"
+      - "not_refusal"
+      - "valid_json"
+      - "no_repetition"
+  large:
+    enabled_validators:
+      - "non_empty"
+      - "not_truncated"
+      - "not_refusal"
+      - "valid_json"
+      - "no_repetition"

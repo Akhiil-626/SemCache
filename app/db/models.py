@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 from pgvector.sqlalchemy import Vector
-from sqlalchemy import Boolean, DateTime, Float, Index, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, Float, Index, Integer, JSON, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -98,6 +98,22 @@ class RequestRecord(Base):
         String(20), default="ok", server_default="ok", nullable=False
     )
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    routing_rationale: Mapped[str | None] = mapped_column(Text, nullable=True)
+    routing_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    desired_tier: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    escalation_count: Mapped[int] = mapped_column(
+        Integer, default=0, server_default="0", nullable=False
+    )
+    attempts: Mapped[list[dict] | None] = mapped_column(JSON, nullable=True)
+    validation_failed: Mapped[bool] = mapped_column(
+        Boolean, default=False, server_default="false", nullable=False
+    )
+    wasted_latency_ms: Mapped[float] = mapped_column(
+        Float, default=0.0, server_default="0", nullable=False
+    )
+    wasted_shadow_cost_usd: Mapped[float] = mapped_column(
+        Float, default=0.0, server_default="0", nullable=False
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),

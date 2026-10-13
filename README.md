@@ -44,7 +44,7 @@ ollama pull llama3.2:3b
 ollama pull llama3.1:8b
 ollama pull all-minilm
 
-git clone https://github.com/<your-username>/semcache.git
+git clone https://github.com/Akhiil-626/SemCache.git
 cd semcache
 
 py -m venv .venv

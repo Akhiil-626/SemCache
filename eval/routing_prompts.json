@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "prompt": "What is the capital city of Australia?",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 2,
+    "prompt": "Define photosynthesis in one clear sentence.",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 3,
+    "prompt": "Rewrite this casual sentence into formal business English: 'Hey, gotta tell ya I won't make it to the team meeting tomorrow morning.'",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 4,
+    "prompt": "Translate 'Good morning, where can I find the nearest train station?' into Spanish.",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 5,
+    "prompt": "How many planets are in our solar system?",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 6,
+    "prompt": "What does the HTTP 404 status code indicate?",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 7,
+    "prompt": "Convert the following name and city into JSON format with keys 'full_name' and 'city': Alice Smith lives in Seattle.",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 8,
+    "prompt": "Summarize this paragraph in ten words or fewer: 'Electric vehicles rely on rechargeable battery packs rather than internal combustion engines. They produce zero direct tailpipe emissions and are increasingly adopted worldwide.'",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 9,
+    "prompt": "Quelle est la monnaie officielle du Japon ?",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 10,
+    "prompt": "Write a Python one-liner function to reverse a string.",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 11,
+    "prompt": "Extract the date and invoice number from this text: 'Invoice INV-9821 was issued on March 14, 2024 for software consulting services.'",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 12,
+    "prompt": "Traduzca la frase 'The library closes at 8 PM' al español.",
+    "difficulty": "easy",
+    "expected_tier": "small"
+  },
+  {
+    "id": 13,
+    "prompt": "Summarize the following product review into three bullet points highlighting pros and two bullet points highlighting cons:\n\n'I have been using the Apex Pro keyboard for three months now. The mechanical key switches feel very responsive and tactile, making long typing sessions comfortable. The customizable RGB lighting looks sleek on my desk, and the aluminum frame feels durable. However, the wireless battery life falls short of the advertised forty hours, often requiring a recharge every three days. Additionally, the companion software is clunky to navigate and occasionally crashes when switching custom profiles.'",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 14,
+    "prompt": "Write a Python function `find_first_duplicate(items)` that returns the first element that appears more than once in a list, or `None` if all elements are distinct. Include basic docstring and handle empty lists.",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 15,
+    "prompt": "Given this employee record, convert it into valid JSON following this schema: `{\"id\": integer, \"name\": string, \"skills\": array of strings, \"is_active\": boolean}`:\nRecord: Employee 402, named Jordan Miller, active status, skilled in Python, SQL, and Docker.",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 16,
+    "prompt": "Résumez le texte suivant en deux phrases concrètes :\n\n'L'intelligence artificielle transforme les méthodes de diagnostic médical en analysant rapidement de grands volumes d'images radiologiques. Bien que ces outils améliorent la précision de la détection précoce, les cliniciens doivent toujours valider manuellement les résultats pour éviter les erreurs d'interprétation.'",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 17,
+    "prompt": "Find and fix the bug in this Python snippet that causes an IndexError or incorrect sum:\n```python\ndef running_averages(nums):\n    result = []\n    for i in range(len(nums)):\n        sub = nums[:i]\n        result.append(sum(sub) / len(sub))\n    return result\n```\nExplain what went wrong on the first iteration and provide the corrected code.",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 18,
+    "prompt": "Rewrite the following explanation of database indexing so that a non-technical sales executive can easily explain it to a client in thirty seconds:\n\n'A B-tree index in a relational database stores a sorted copy of specific columns along with row pointers. When queries execute with WHERE filters, the database engine avoids costly full-table linear scans by traversing balanced tree nodes with logarithmic time complexity.'",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 19,
+    "prompt": "Compare CSV and Parquet file formats across three criteria: file compression size, ease of human inspection, and query scan performance on analytical columns.",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 20,
+    "prompt": "Translate this customer support response into German, maintaining an empathetic, polite, and professional tone:\n\n'We sincerely apologize for the delay in shipping your order. A replacement package has been dispatched today via priority courier, and we have refunded your shipping fee.'",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 21,
+    "prompt": "A bakery produces 120 loaves of bread each morning. It sells 75% of them before noon at $4.00 each, and discounts the remaining loaves by 50% for the afternoon. If all loaves are sold by closing, what is the bakery's total revenue for the day?",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 22,
+    "prompt": "Write a regular expression that validates an international E.164 phone number (starts with an optional +, followed by 1 to 3 country code digits, followed by subscriber digits, total length 7 to 15 digits). Show two valid and two invalid examples.",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 23,
+    "prompt": "Explique brevemente en español la diferencia entre una variable global y una variable local en la programación.",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 24,
+    "prompt": "Draft a curl command that sends an authenticated POST request to `https://api.example.com/v2/webhooks` with an `Authorization: Bearer my-secret-token` header and a JSON payload specifying `url` and an array of `events` containing `'order.created'` and `'order.fulfilled'`.",
+    "difficulty": "medium",
+    "expected_tier": "either"
+  },
+  {
+    "id": 25,
+    "prompt": "Solve this logic problem step by step: Three friends—Alex, Blake, and Casey—live in houses colored red, blue, and green, and each drives a different vehicle: a sedan, an SUV, or a motorcycle. 1) Alex does not live in the red house. 2) The person in the blue house drives a motorcycle. 3) Casey drives an SUV. 4) Blake does not live in the blue house. Determine who lives in which house and what vehicle each person drives, explaining every deduction clearly.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 26,
+    "prompt": "Analyze the architectural trade-offs between two distributed consistency models for a high-throughput financial ledger: Strong consistency via Raft-based consensus versus Eventual consistency with Conflict-Free Replicated Data Types (CRDTs). Compare them across network partition tolerance, tail write latency under geo-replication, operational failure recovery complexity, and idempotency guarantees.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 27,
+    "prompt": "Prove by induction that for any positive integer n, the sum of the first n odd positive integers equals n squared (1 + 3 + 5 + ... + (2n - 1) = n^2). Provide the base step, inductive hypothesis, inductive step, and concluding proof statement.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 28,
+    "prompt": "The following Python async worker has subtle concurrency bugs involving shared state, race conditions, and unhandled task cancellation. Identify all concurrency flaws and refactor it into robust production code:\n```python\nimport asyncio\n\ncounter = 0\nqueue = asyncio.Queue()\n\nasync def worker(worker_id):\n    global counter\n    while True:\n        item = await queue.get()\n        # simulate processing\n        await asyncio.sleep(0.01)\n        counter += 1\n        print(f'Worker {worker_id} processed {item}, total={counter}')\n        queue.task_done()\n\nasync def main():\n    for i in range(100):\n        queue.put_nowait(i)\n    tasks = [asyncio.create_task(worker(w)) for w in range(5)]\n    await queue.join()\n    for t in tasks:\n        t.cancel()\n    await asyncio.gather(*tasks)\n```",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 29,
+    "prompt": "Analysez de manière critique et étape par étape les conséquences macroéconomiques d'une politique de taux d'intérêt négatifs prolongée sur le secteur bancaire commercial, l'épargne des ménages et les bulles spéculatives immobilières. Concluez par une synthèse des mécanismes de transmission.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 30,
+    "prompt": "Derive the closed-form solution for the gradient of the binary cross-entropy loss function L(y, y_hat) = -[y * log(y_hat) + (1 - y) * log(1 - y_hat)] with respect to the input logit z, where y_hat = sigma(z) = 1 / (1 + exp(-z)). Show every step of the chain rule and algebraic simplification.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 31,
+    "prompt": "Architect a resilient real-time rate limiter for an API gateway serving 500,000 requests per second across multiple data centers. Discuss sliding window log versus token bucket in Redis cluster, local memory hedging to mitigate Redis outages, cross-region synchronization drift, and fallback degradation strategies under severe network degradation.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 32,
+    "prompt": "In a medical screening for a disease that affects 0.5% of the population, a test has a false positive rate of 4% and a false negative rate of 2%. If a randomly chosen individual tests positive twice on two independent tests, what is the exact posterior probability that they actually have the disease? Show all steps using Bayes' theorem.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 33,
+    "prompt": "コードのリファクタリングと最適化を行ってください。以下のGo言語による並行処理スニペットには、goroutineリーク、デッドロックの可能性、および不適切なエラーハンドリングが存在します。問題点を列挙し、`context.Context`によるキャンセルと`sync.WaitGroup`を用いた安全な実装に書き直してください:\n```go\nfunc FetchAll(urls []string) []string {\n    ch := make(chan string)\n    for _, u := range urls {\n        go func(url string) {\n            resp, _ := http.Get(url)\n            body, _ := io.ReadAll(resp.Body)\n            ch <- string(body)\n        }(u)\n    }\n    var results []string\n    for i := 0; i < len(urls); i++ {\n        results = append(results, <-ch)\n    }\n    return results\n}\n```",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 34,
+    "prompt": "You are a principal distributed systems and database architect reviewing an end-to-end zero-downtime migration strategy for a mission-critical billing platform. The existing legacy system relies on a monolithic PostgreSQL database processing more than twenty thousand transactional ledger mutations per second with strict ACID guarantees. The proposed migration roadmap seeks to decompose this database into an event-sourced architecture running on a distributed cluster across multiple cloud availability zones. The engineering team has proposed a four-phase rollout plan. Phase one provisions an asynchronous Change Data Capture (CDC) stream using Debezium and Apache Kafka to replicate table row modifications to the target event store. Phase two deploys a dual-write mechanism inside the application layer where each ledger write is synchronously issued to both the legacy relational database and the target event store within a distributed two-phase commit protocol across wide area network connections. Phase three deploys a real-time audit daemon that computes rolling Merkle tree hashes across account balances in both systems to verify parity. Phase four cuts over all application traffic to the new event store and shuts down the legacy database. Conduct an exhaustive, step-by-step architectural critique of this plan. Address the following aspects in detail: First, analyze the severe throughput degradation, lock contention, and latency cascading introduced by executing distributed two-phase commits across network boundaries in phase two. Second, explain how transient consumer lag, network partitions, and out-of-order delivery in the Kafka pipeline could create false positive discrepancies in the Merkle tree auditing process. Third, outline a far safer alternative migration methodology—such as the strangler fig pattern combined with write-ahead event streams and asynchronous shadow writes—detailing how to guarantee zero data loss, maintain linearizable consistency, and preserve instant fallback capability without jeopardizing user-facing transaction latency.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 35,
+    "prompt": "You are an infrastructure performance specialist conducting an emergency architectural audit of a mission-critical retail platform prior to an international holiday sales event. The application architecture utilizes an edge reverse proxy and a Redis cluster situated in front of an authoritative relational database cluster. Under sudden traffic surges, hundreds of thousands of concurrent user sessions query identical product inventory records. Under the current cache invalidation design, whenever an inventory cache key reaches its time-to-live expiration, hundreds of parallel requests simultaneously experience cache misses and attempt to recalculate the inventory balance by running heavy aggregation queries against the primary database. This results in severe cache stampedes, saturated database connection pools, thread starvation, and catastrophic cascading gateway timeouts across downstream microservices. The engineering leadership is evaluating three competing remediation architectures: Architecture One implements distributed mutex locks via Redis where only the thread acquiring the lease recalculates the cache while all competing threads back off and retry. Architecture Two implements the optimal probabilistic early expiration algorithm known as XFetch, which triggers asynchronous recalculation prior to expiration based on the delta between current time and expiration scaled by execution duration. Architecture Three implements dedicated asynchronous worker daemons scheduled to preemptively refresh cached balances, always serving slightly stale inventory data to user requests while background refreshes execute. Perform a thorough, step-by-step technical critique comparing these three architectures. Evaluate each approach across the following dimensions: First, tail latency impact and thread pool utilization during sudden traffic spikes. Second, the concrete risk of race conditions leading to overselling scarce inventory. Third, operational failure modes if Redis cluster nodes undergo failover or network partitions. Finally, deliver an explicit technical recommendation indicating which architecture or hybrid combination best guarantees five-nines uptime during major traffic surges.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  },
+  {
+    "id": 36,
+    "prompt": "Compare the performance, memory overhead, cache locality, and worst-case time complexities of skip lists versus red-black trees when implementing an in-memory concurrent ordered index. Analyze lock-free concurrent traversal techniques for both structures under a 90% read / 10% write workload.",
+    "difficulty": "hard",
+    "expected_tier": "large"
+  }
+]

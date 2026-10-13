@@ -126,3 +126,24 @@ async def test_llm_client_retry_on_connection_error():
 
         assert result.content == "Recovered response"
         assert mock_acompletion.call_count == 2
+
+
+@pytest.mark.asyncio
+async def test_llm_client_timeout_does_not_retry():
+    """Verifies client never retries on read timeout and raises TimeoutError with 'timeout after <N>s'."""
+    client = LLMClient(retry_count=1)
+    timeout_err = litellm.exceptions.Timeout(
+        message="Request timed out",
+        model="ollama_chat/llama3.2:3b",
+        llm_provider="ollama",
+    )
+
+    with patch("app.llm.client.acompletion", new_callable=AsyncMock) as mock_acompletion:
+        mock_acompletion.side_effect = timeout_err
+
+        with pytest.raises(TimeoutError) as exc_info:
+            await client.generate_response(prompt="Heavy prompt", tier="small")
+
+        assert "timeout after" in str(exc_info.value)
+        assert mock_acompletion.call_count == 1
+
