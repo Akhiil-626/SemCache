@@ -8,7 +8,7 @@ from app.cache.backend import ExactCacheBackend, get_exact_cache_backend
 from app.cache.key import build_exact_cache_key
 from app.cache.policies import evaluate_cache_policy, is_informational_query
 from app.cache.service import cache_service
-from app.core.config import settings
+from app.core.config import AUTO_MODEL, settings
 from app.db.models import RequestRecord
 from app.embeddings.service import embedding_service
 from app.llm.client import llm_client
@@ -118,7 +118,12 @@ class CompletionService:
         )
 
         # 3. Determine tier and model routing upfront
-        if preferred_tier:
+        is_explicit_tier = (
+            preferred_tier is not None
+            and preferred_tier != ""
+            and preferred_tier != AUTO_MODEL
+        )
+        if is_explicit_tier:
             routing_decision = cost_router.route(
                 prompt=query_text or prompt,
                 user_budget=user_budget,
@@ -332,7 +337,7 @@ class CompletionService:
             "response_format": response_format,
             "messages": normalized_msgs,
         }
-        bypass_cascade = bool(preferred_tier)
+        bypass_cascade = is_explicit_tier
 
         try:
             cascade_result = await run_cascade(

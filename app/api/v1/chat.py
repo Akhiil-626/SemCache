@@ -2,10 +2,11 @@ import time
 import uuid
 from typing import Any
 
-from fastapi import APIRouter, Depends, Header, status
+from fastapi import APIRouter, Depends, Header, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core.config import AUTO_MODEL, settings
 from app.db.session import get_db
 from app.services.completion_service import completion_service
 
@@ -56,6 +57,7 @@ class ChatCompletionResponse(BaseModel):
     latency_ms: float
     routing_rationale: str | None = None
     cache_status: str | None = None
+    escalation_count: int = 0
 
 
 def format_messages_to_prompt(messages: list[ChatMessage]) -> str:
@@ -73,6 +75,17 @@ async def create_chat_completion(
     db: AsyncSession = Depends(get_db),
 ) -> ChatCompletionResponse:
     """OpenAI-compatible chat completion endpoint with exact key-value caching and cost routing."""
+    valid_tier_names = [t.name for t in settings.tiers]
+    valid_models = [AUTO_MODEL] + valid_tier_names
+
+    req_model = request.model
+    if req_model is not None and req_model != "" and req_model != AUTO_MODEL:
+        if req_model not in valid_tier_names:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid model '{req_model}'. Valid values are: {', '.join(valid_models)}",
+            )
+
     prompt = format_messages_to_prompt(request.messages)
 
     result = await completion_service.execute_completion(
@@ -117,4 +130,5 @@ async def create_chat_completion(
         latency_ms=result.latency_ms,
         routing_rationale=result.routing_rationale,
         cache_status=result.cache_status,
+        escalation_count=getattr(result, "escalation_count", 0),
     )

@@ -1,3 +1,4 @@
+from app.core.config import AUTO_MODEL
 from app.routing.cascade import CascadeResult, run_cascade
 from app.routing.router import (
     CostAwareRouter,
@@ -14,6 +15,7 @@ from app.routing.validators import (
 )
 
 __all__ = [
+    "AUTO_MODEL",
     "CascadeResult",
     "CostAwareRouter",
     "Router",

@@ -5,6 +5,9 @@ from pydantic import BaseModel, Field, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+AUTO_MODEL: str = "auto"
+
+
 class ShadowPriceConfig(BaseModel):
     """Input and output pricing per 1M tokens for shadow cost tracking."""
 
@@ -165,6 +168,10 @@ class Settings(BaseSettings):
             if tier.name == name:
                 return tier
         return current_tiers[0]
+
+    @property
+    def valid_models(self) -> list[str]:
+        return [AUTO_MODEL] + [t.name for t in self.tiers]
 
 
 settings = Settings()

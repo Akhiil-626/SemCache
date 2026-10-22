@@ -5,7 +5,7 @@ import re
 from typing import Any, Protocol
 import yaml
 
-from app.core.config import ModelTierConfig, settings
+from app.core.config import AUTO_MODEL, ModelTierConfig, settings
 
 logger = logging.getLogger(__name__)
 
@@ -228,11 +228,15 @@ class RuleRouter:
         highest_tier = tiers[-1]
         est_tokens = max(1, len(prompt) // 4)
 
-        # Explicit model bypasses scoring
-        if model:
+        # Explicit model bypasses scoring ("auto", empty string, or None triggers automatic routing)
+        is_explicit = model is not None and model != "" and model != AUTO_MODEL
+        if is_explicit:
             target_tier = next((t for t in tiers if t.name == model or t.model == model), None)
             if not target_tier:
-                target_tier = settings.get_tier(model)
+                valid_options = [AUTO_MODEL] + [t.name for t in tiers]
+                raise ValueError(
+                    f"Invalid model '{model}'. Valid values are: {', '.join(valid_options)}"
+                )
             est_shadow = round(self._estimate_tier_shadow_cost(est_tokens, target_tier), 8)
             return RoutingDecision(
                 tier=target_tier.name,
